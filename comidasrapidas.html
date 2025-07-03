@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comidas Rápidas - JF BBQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF4E50;
+            --secondary: #F9D423;
+            --dark: #2C3E50;
+            --light: #F5F7FA;
+            --accent: #FF7E5F;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 50px;
+        }
+        
+        .back-btn {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .menu-container {
+            padding: 20px 15px;
+            max-width: 100%;
+        }
+        
+        .category-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 10px;
+        }
+        
+        .category-info {
+            flex: 1;
+            padding: 0 15px;
+        }
+        
+        .category-title {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .menu-image-container {
+            width: 120px;
+            height: 120px;
+            flex-shrink: 0;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .menu-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 3px solid var(--secondary);
+            transition: transform 0.3s;
+        }
+        
+        .menu-image:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Modal para imagen ampliada */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            overflow: auto;
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        
+        .close:hover {
+            color: var(--secondary);
+            cursor: pointer;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 0 15px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <button class="back-btn" onclick="window.history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1>Comidas Rápidas</h1>
+    </header>
+    
+    <div class="menu-container">
+        <!-- Sección Pataconas -->
+        <div class="category-section">
+            <div class="menu-image-container" onclick="openModal('img/pataconas.jpeg')">
+                <img src="img/pataconas.jpeg" alt="Pataconas JF BBQ" class="menu-image">
+            </div>
+            <div class="category-info">
+                <div class="category-title">Pataconas</div>
+                <p>Tostadas de plátano con toppings de carne y queso</p>
+            </div>
+        </div>
+        
+        <!-- Sección Salchipapas -->
+        <div class="category-section">
+            <div class="menu-image-container" onclick="openModal('img/salchipapa.jpeg')">
+                <img src="img/salchipapa.jpeg" alt="Salchipapas JF BBQ" class="menu-image">
+            </div>
+            <div class="category-info">
+                <div class="category-title">Salchipapas</div>
+                <p>Combinación de salchichas y papas fritas</p>
+            </div>
+        </div>
+        
+        <!-- Sección Perros Calientes -->
+        <div class="category-section">
+            <div class="menu-image-container" onclick="openModal('img/perros.jpeg')">
+                <img src="img/perros.jpeg" alt="Perros Calientes JF BBQ" class="menu-image">
+            </div>
+            <div class="category-info">
+                <div class="category-title">Perros Calientes</div>
+                <p>Hot dogs con diversos toppings y salsas</p>
+            </div>
+        </div>
+        
+        <!-- Sección Alitas -->
+        <div class="category-section">
+            <div class="menu-image-container" onclick="openModal('img/alas.jpeg')">
+                <img src="img/alas.jpeg" alt="Alitas JF BBQ" class="menu-image">
+            </div>
+            <div class="category-info">
+                <div class="category-title">Alitas BBQ</div>
+                <p>Alitas de pollo con diversas salsas</p>
+            </div>
+        </div>
+        
+        <!-- Sección Hamburguesas -->
+        <div class="category-section">
+            <div class="menu-image-container" onclick="openModal('img/hamburguesas.jpeg')">
+                <img src="img/hamburguesas.jpeg" alt="Hamburguesas JF BBQ" class="menu-image">
+            </div>
+            <div class="category-info">
+                <div class="category-title">Hamburguesas</div>
+                <p>Hamburguesas artesanales con ingredientes frescos</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para imagen ampliada -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="expandedImage">
+    </div>
+    
+    <div class="footer">
+        JF BBQ - Desde 2007 en Ibagüe
+    </div>
+
+    <script>
+        // Función para abrir el modal con la imagen ampliada
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('expandedImage');
+            modal.style.display = "block";
+            modalImg.src = imageSrc;
+            
+            // Bloquear scroll del body cuando el modal está abierto
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Función para cerrar el modal
+        function closeModal() {
+            document.getElementById('imageModal').style.display = "none";
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Cerrar modal al hacer clic fuera de la imagen
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+        
+        // Efecto táctil para móviles
+        document.querySelectorAll('.category-section').forEach(section => {
+            section.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.98)';
+            });
+            
+            section.addEventListener('touchend', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
